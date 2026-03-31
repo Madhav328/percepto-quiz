@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Login</title>
+    <link rel="stylesheet" href="translate-styles.css">
+    <style>
+        body {
+            font-family: 'Comic Sans MS', 'Segoe UI', Arial, sans-serif;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #FAF9F6; /* Pale Cream background */
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Animated background with floating shapes */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, #FAF9F6, #E8F8F5);
+            z-index: -2;
+        }
+        
+        /* Floating background shapes */
+        .bg-shape {
+            position: fixed;
+            z-index: -1;
+            border-radius: 50%;
+            animation: float 8s infinite ease-in-out;
+            filter: blur(2px);
+        }
+        
+        .bg-shape:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            width: 120px;
+            height: 120px;
+            background-color: rgba(93, 173, 226, 0.2); /* Primary */
+            animation-delay: 0s;
+        }
+        
+        .bg-shape:nth-child(2) {
+            top: 20%;
+            right: 15%;
+            width: 150px;
+            height: 150px;
+            background-color: rgba(244, 208, 63, 0.2); /* Accent */
+            animation-delay: 1s;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        }
+        
+        .bg-shape:nth-child(3) {
+            bottom: 15%;
+            left: 20%;
+            width: 130px;
+            height: 130px;
+            background-color: rgba(165, 105, 189, 0.2); /* Support */
+            animation-delay: 0.5s;
+            border-radius: 30% 70% 50% 50% / 50% 50% 70% 30%;
+        }
+        
+        .bg-shape:nth-child(4) {
+            bottom: 10%;
+            right: 10%;
+            width: 180px;
+            height: 180px;
+            background-color: rgba(72, 201, 176, 0.2); /* Positive */
+            animation-delay: 1.5s;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(15px, 15px) rotate(10deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+        
+        /* Decorative stars styling */
+        .decoration-stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            font-size: 24px;
+            animation-duration: 6s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            opacity: 0.7;
+        }
+        
+        .star1 {
+            top: 15%;
+            left: 10%;
+            animation-name: float-diagonal;
+        }
+        
+        .star2 {
+            top: 25%;
+            right: 15%;
+            animation-name: float-circle;
+            animation-delay: 1s;
+        }
+        
+        .star3 {
+            bottom: 30%;
+            left: 20%;
+            animation-name: float-zigzag;
+            animation-delay: 2s;
+        }
+        
+        @keyframes float-diagonal {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(30px, -20px) rotate(180deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+        
+        @keyframes float-circle {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-15px, 15px) scale(1.1); }
+            66% { transform: translate(15px, 15px) scale(0.9); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+        
+        @keyframes float-zigzag {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(20px, -10px) rotate(15deg); }
+            50% { transform: translate(0, 10px) rotate(0deg); }
+            75% { transform: translate(-20px, -10px) rotate(-15deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+        
+        /* Title highlight styling */
+        .title-highlight {
+            color: #272323; /* Deep gold for maximum contrast */
+            font-weight: bold;
+            position: relative;
+            display: inline-block;
+            transform-origin: center bottom;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        /* Sequential word animations */
+        .title-highlight.word1 {
+            animation: word-bounce 6s ease-in-out infinite;
+        }
+        
+        .title-highlight.word2 {
+            animation: word-bounce 6s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+        
+        .title-highlight.word3 {
+            animation: word-bounce 6s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+        
+        /* Individual word bounce animation */
+        @keyframes word-bounce {
+            0%, 16%, 33%, 50%, 85%, 100% { transform: scale(1); }
+            8% { transform: scale(1.3) translateY(-7px); }
+            /* All bounce together at 66-70% */
+            66%, 70% { transform: scale(1.3) translateY(-7px); }
+        }
+        
+        .login-container {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0px 8px 20px rgba(127, 140, 141, 0.2);
+            border: 3px solid #5DADE2; /* Primary color */
+            width: 90%;
+            max-width: 460px;
+            position: relative;
+            margin-top: 20px;
+            animation: container-pulse 2s infinite alternate;
+        }
+        
+        @keyframes container-pulse {
+            from { box-shadow: 0px 8px 20px rgba(127, 140, 141, 0.2); }
+            to { box-shadow: 0px 12px 25px rgba(93, 173, 226, 0.4); }
+        }
+        .form-group {
+            margin-bottom: 1.8rem;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 0.8rem 1rem 0.4rem;
+            border-radius: 12px;
+            border-left: 3px solid #5DADE2;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #5DADE2; /* Primary color */
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.05);
+        }
+        input[type="email"], input[type="password"], input[type="text"] {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            margin-bottom: 0.5rem;
+            border: 2px solid #5DADE2; /* Primary color */
+            border-radius: 20px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        /* Add animated border on focus */
+        input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus {
+            border-color: #48C9B0; /* Positive color */
+            box-shadow: 0 0 10px rgba(72, 201, 176, 0.6);
+            outline: none;
+            animation: pulse-border 1.5s infinite;
+            transform: translateY(-2px);
+        }
+        
+        /* Add playful input animation */
+        input[type="email"], input[type="password"], input[type="text"] {
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+        
+        /* Add fun validation indicator */
+        .form-group::after {
+            content: '';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .form-group.valid-input::after {
+            content: '✅';
+            opacity: 1;
+            animation: scale-in 0.3s forwards;
+        }
+        
+        .form-group.invalid-input::after {
+            content: '❌';
+            opacity: 1;
+            animation: wobble 0.5s forwards;
+        }
+        
+        @keyframes scale-in {
+            0% { transform: translateY(-50%) scale(0); }
+            50% { transform: translateY(-50%) scale(1.2); }
+            100% { transform: translateY(-50%) scale(1); }
+        }
+        
+        @keyframes wobble {
+            0% { transform: translateY(-50%) rotate(0); }
+            15% { transform: translateY(-50%) rotate(-15deg); }
+            30% { transform: translateY(-50%) rotate(15deg); }
+            45% { transform: translateY(-50%) rotate(-10deg); }
+            60% { transform: translateY(-50%) rotate(10deg); }
+            75% { transform: translateY(-50%) rotate(-5deg); }
+            100% { transform: translateY(-50%) rotate(0); }
+        }
+        
+        /* Label animation for form fields */
+        .form-group label {
+            position: absolute;
+            left: 15px;
+            top: 10px;
+            font-size: 0.9rem;
+            color: #7F8C8D;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        
+        .form-group input:focus ~ label,
+        .form-group input:not(:placeholder-shown) ~ label {
+            opacity: 1;
+            transform: translateY(-38px);
+            font-size: 0.75rem;
+            color: #5DADE2;
+            font-weight: bold;
+        }
+        
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 5px rgba(72, 201, 176, 0.6); }
+            50% { box-shadow: 0 0 15px rgba(72, 201, 176, 0.8); }
+            100% { box-shadow: 0 0 5px rgba(72, 201, 176, 0.6); }
+        }
+        input:focus {
+            border-color: #48C9B0; /* Positive color */
+            box-shadow: 0 0 0 3px rgba(72, 201, 176, 0.2);
+        }
+        button {
+            width: 100%;
+            padding: 1rem;
+            background-color: #5DADE2; /* Primary color */
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 6px 0 #3498DB;
+            position: relative;
+            top: 0;
+            transition: all 0.3s;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        /* Add sparkle/star effect on hover */
+        button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.8) 10%, transparent 10%), 
+                           radial-gradient(circle, rgba(255,255,255,0.5) 15%, transparent 15%);
+            background-size: 20px 20px, 30px 30px;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: opacity 0.4s, transform 0.4s;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        button:hover {
+            background-color: #3498DB;
+            transform: translateY(-3px);
+            box-shadow: 0 9px 0 #2E86C1;
+        }
+        
+        button:hover::before {
+            opacity: 0.6;
+            transform: scale(1);
+            animation: sparkle-button 2s infinite linear;
+        }
+        
+        /* Add star that floats up on click */
+        button::after {
+            content: '⭐';
+            position: absolute;
+            font-size: 24px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            transition: all 0.3s;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        button:active {
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #2E86C1;
+        }
+        
+        button:active::after {
+            opacity: 1;
+            transform: translate(-50%, -150%) scale(1);
+            animation: star-float 1s forwards ease-out;
+        }
+        
+        @keyframes sparkle-button {
+            0% { background-position: 0 0, 15px 15px; }
+            100% { background-position: 30px 30px, 45px 45px; }
+        }
+        
+        @keyframes star-float {
+            0% { transform: translate(-50%, -50%) scale(0.2); opacity: 0.5; }
+            50% { transform: translate(-50%, -150%) scale(1.5); opacity: 1; }
+            100% { transform: translate(-50%, -300%) scale(0.5); opacity: 0; }
+        }
+        .google-btn {
+            background-color: white;
+            color: #7F8C8D; /* Text/Base color */
+            border: 2px solid #F4D03F; /* Accent color */
+            padding: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 25px;
+            margin-bottom: 1.25rem;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Rainbow border effect on hover */
+        .google-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #5DADE2, #F4D03F, #A569BD, #48C9B0);
+            border-radius: 25px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .google-btn:hover {
+            background-color: #F9F9F9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+            border-color: transparent;
+        }
+        
+        .google-btn:hover::before {
+            opacity: 1;
+            animation: rotate-hue 3s linear infinite;
+        }
+        
+        @keyframes rotate-hue {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        
+        .google-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #F1C40F;
+        }
+        .google-btn img {
+            width: 18px;
+            height: 18px;
+        }
+        .divider {
+            text-align: center;
+            margin: 1.25rem 0;
+            color: #7F8C8D; /* Text/Base color */
+            position: relative;
+            font-weight: bold;
+        }
+        .divider::before, .divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 2px;
+            background: linear-gradient(to right, rgba(93, 173, 226, 0.2), rgba(93, 173, 226, 0.8)); /* Primary color gradient */
+        }
+        .divider::before {
+            left: 0;
+            background: linear-gradient(to right, rgba(93, 173, 226, 0.8), rgba(93, 173, 226, 0.2)); /* Primary color gradient reversed */
+        }
+        .divider::after {
+            right: 0;
+        }
+        .toggle-form {
+            text-align: center;
+            margin: 0.75rem 0;
+        }
+        .toggle-form a {
+            color: #5DADE2; /* Primary color */
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+        .toggle-form a:hover {
+            background-color: rgba(93, 173, 226, 0.1); /* Primary color with opacity */
+            text-decoration: none;
+            color: #3498DB;
+        }
+        .error-message {
+            color: red;
+            margin-bottom: 1rem;
+            display: none;
+        }
+            h1 {
+            font-size: 28px;
+            color: #5DADE2; /* Primary color */
+            text-shadow: 2px 2px 0px rgba(127, 140, 141, 0.2);
+            letter-spacing: 0.5px;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        h1:before, h1:after {
+            content: '★';
+            color: #F4D03F; /* Accent color - warm yellow */
+            position: absolute;
+            top: 0;
+        }
+        
+        h1:before {
+            left: -15px;
+        }
+        
+        h1:after {
+            right: -15px;
+        }
+        
+        .error-message {
+            color: #F39C12; /* Alert/Warning color */
+            background-color: rgba(243, 156, 18, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            display: none;
+            animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-10px); }
+            40% { transform: translateX(10px); }
+            60% { transform: translateX(-10px); }
+            80% { transform: translateX(10px); }
+            100% { transform: translateX(0); }
+        }
+        
+        .admin-links {
+            text-align: center;
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .admin-link {
+            color: #A569BD; /* Support color */
+            font-size: 0.9rem;
+            text-decoration: none;
+            padding: 5px 12px;
+            border-radius: 15px;
+            transition: all 0.3s;
+            background-color: rgba(165, 105, 189, 0.08);
+        }
+        
+        .admin-link:hover {
+            background-color: rgba(165, 105, 189, 0.15);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating background shapes -->
+    <div class="bg-shape"></div>
+    <div class="bg-shape"></div>
+    <div class="bg-shape"></div>
+    <div class="bg-shape"></div>
+    
+    <!-- Hidden Google Translate element -->
+    <div id="google_translate_element"></div>
+    
+    
+    
+    <div class="login-container">
+        <!-- Added decorative elements for gamification -->
+        <div class="decoration-stars">
+            <div class="star star1">⭐</div>
+            <div class="star star2">✨</div>
+            <div class="star star3">🌟</div>
+        </div>
+        
+        <div id="loginForm">
+            <h1>
+                <span class="title-highlight word1">Welcome</span>&nbsp;
+                <span class="title-highlight word2">to</span>&nbsp;&nbsp;
+                <span class="title-highlight word3">Percepto!</span>
+            </h1>
+            <div class="error-message" id="loginError"></div>
+            <button onclick="signInWithGoogle()" class="google-btn">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo">
+                Sign in with Google
+            </button>
+            <div class="divider">or</div>
+            <div class="form-group">
+                <label for="loginEmail">📧 Email</label>
+                <input type="email" id="loginEmail" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">🔒 Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password" required>
+            </div>
+            <button onclick="loginUser()">Login</button>
+            <div class="toggle-form">
+                <a href="#" onclick="toggleForm('register')">Don't have an account? Register</a>
+            </div>
+            <div class="admin-links">
+                <a href="#" onclick="navigateToAdmin()" class="admin-link">Admin Access</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScmc0GP68xzO1OI-C4RmuZihXstvRBAQ3AfHGKQDIQxaUU4Pw/viewform?usp=header" class="admin-link">Feedback</a>
+            </div>
+        </div>
+
+        <div id="registerForm" style="display: none;">
+            <h2>Create Account</h2>
+            <div class="error-message" id="registerError"></div>
+            <button onclick="signInWithGoogle()" class="google-btn">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo">
+                Sign up with Google
+            </button>
+            <div class="divider">or</div>
+            <div class="form-group">
+                <label for="registerEmail">📧 Email</label>
+                <input type="email" id="registerEmail" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="registerPassword">🔒 Password</label>
+                <input type="password" id="registerPassword" placeholder="Enter your password" required>
+            </div>
+            <button onclick="registerUser()">Register</button>
+            <div class="toggle-form">
+                <a href="#" onclick="toggleForm('login')">Already have an account? Login</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <!-- Firebase Auth -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <!-- Firebase Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDFENL5Z_2Cewh4p6zp_BZtxL9n0di-9u8",
+            authDomain: "projeccvi.firebaseapp.com",
+            projectId: "projeccvi",
+            storageBucket: "projeccvi.firebasestorage.app",
+            messagingSenderId: "279067566247",
+            appId: "1:279067566247:web:9cf00f7bf1ea3549fabb82"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        
+        // Configure Google Auth Provider
+        const googleProvider = new firebase.auth.GoogleAuthProvider();
+        googleProvider.addScope('profile');
+        googleProvider.addScope('email');
+        
+        console.log("Firebase initialized successfully");
+
+        // Handle relative paths for both local and GitHub Pages
+        function getPath(page) {
+            const baseUrl = window.location.href.split('/').slice(0, -1).join('/');
+            return `${baseUrl}/${page}`;
+        }
+
+        // Check if user has profile
+        async function checkUserProfile(userId) {
+            try {
+                const doc = await db.collection('userProfiles').doc(userId).get();
+                return doc.exists;
+            } catch (error) {
+                console.error('Error checking profile:', error);
+                return false;
+            }
+        }
+
+        // Google Sign In
+        window.signInWithGoogle = async () => {
+            const errorElement = document.getElementById(document.getElementById('loginForm').style.display === 'none' ? 'registerError' : 'loginError');
+            errorElement.style.display = 'none';
+            
+            try {
+                const result = await auth.signInWithPopup(googleProvider);
+                console.log("Google sign-in successful:", result.user.email);
+                
+                // Get user info from Google
+                const user = result.user;
+                const userId = user.uid;
+                const userEmail = user.email;
+                const displayName = user.displayName || '';
+                const photoURL = user.photoURL || '';
+                
+                // Check if user has a profile
+                const hasProfile = await checkUserProfile(userId);
+                
+                // If no profile exists, create one with Google info
+                if (!hasProfile) {
+                    try {
+                        // Create user profile in Firestore
+                        await db.collection('userProfiles').doc(userId).set({
+                            email: userEmail,
+                            name: displayName,
+                            photoURL: photoURL,
+                            role: 'user', // Default role
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                            lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                        console.log("Created new profile for Google user:", userEmail);
+                    } catch (profileError) {
+                        console.error("Error creating profile:", profileError);
+                    }
+                } else {
+                    // Update last login time
+                    try {
+                        await db.collection('userProfiles').doc(userId).update({
+                            lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                    } catch (updateError) {
+                        console.error("Error updating last login:", updateError);
+                    }
+                }
+                
+                // Redirect based on profile status
+                window.location.href = getPath(hasProfile ? 'index.html' : 'profile.html');
+            } catch (error) {
+                console.error("Google sign-in error:", error.code, error.message);
+                errorElement.style.display = 'block';
+                if (error.code === 'auth/unauthorized-domain') {
+                    const currentDomain = window.location.hostname;
+                    errorElement.textContent = `Please add "${currentDomain}" to Firebase authorized domains`;
+                } else {
+                    errorElement.textContent = error.message;
+                }
+            }
+        };
+
+        // Check auth state
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                console.log("User is signed in:", user.email);
+                
+                // Check if user has a profile
+                const hasProfile = await checkUserProfile(user.uid);
+                
+                // If no profile and user has email (likely Google sign-in), create profile
+                if (!hasProfile && user.email) {
+                    try {
+                        // Create user profile in Firestore
+                        await db.collection('userProfiles').doc(user.uid).set({
+                            email: user.email,
+                            name: user.displayName || '',
+                            photoURL: user.photoURL || '',
+                            role: 'user', // Default role
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                            lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                        console.log("Created new profile for user:", user.email);
+                    } catch (profileError) {
+                        console.error("Error creating profile:", profileError);
+                    }
+                } else if (hasProfile) {
+                    // Update last login time
+                    try {
+                        await db.collection('userProfiles').doc(user.uid).update({
+                            lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                    } catch (updateError) {
+                        console.error("Error updating last login:", updateError);
+                    }
+                }
+                
+                window.location.href = getPath(hasProfile ? 'index.html' : 'profile.html');
+            } else {
+                console.log("No user signed in");
+            }
+        });
+
+        // Login function
+        window.loginUser = async () => {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const errorElement = document.getElementById('loginError');
+            
+            if (!email || !password) {
+                errorElement.style.display = 'block';
+                errorElement.textContent = "Please enter both email and password";
+                return;
+            }
+            
+            try {
+                errorElement.style.display = 'none';
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                console.log("Login successful:", userCredential.user.email);
+            } catch (error) {
+                console.error("Login error:", error.code, error.message);
+                errorElement.style.display = 'block';
+                errorElement.textContent = error.message;
+            }
+        };
+
+        // Register function
+        window.registerUser = async () => {
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const errorElement = document.getElementById('registerError');
+            
+            if (!email || !password) {
+                errorElement.style.display = 'block';
+                errorElement.textContent = "Please enter both email and password";
+                return;
+            }
+            
+            try {
+                errorElement.style.display = 'none';
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                console.log("Registration successful:", userCredential.user.email);
+            } catch (error) {
+                console.error("Registration error:", error.code, error.message);
+                errorElement.style.display = 'block';
+                errorElement.textContent = error.message;
+            }
+        };
+
+        window.toggleForm = (form) => {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            
+            if (form === 'register') {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+            } else {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+            }
+        };
+        
+        // Navigate to admin page with authentication
+        function navigateToAdmin() {
+            // Open admin page with authentication prompt
+            window.location.href = getPath('admin.html');
+        }
+    </script>
+    <!-- Translation removed from login page as per requirements -->
+    
+    <!-- Form validation enhancement script for gamified UI -->
+    <script>
+        // Enhanced form validation with gamified feedback
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginEmail = document.getElementById('loginEmail');
+            const loginPassword = document.getElementById('loginPassword');
+            const registerEmail = document.getElementById('registerEmail');
+            const registerPassword = document.getElementById('registerPassword');
+            
+            // Email validation
+            [loginEmail, registerEmail].forEach(input => {
+                if (input) {
+                    input.addEventListener('blur', function() {
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        const formGroup = this.closest('.form-group');
+                        
+                        if (this.value.trim() === '') {
+                            formGroup.classList.remove('valid-input', 'invalid-input');
+                        } else if (emailRegex.test(this.value)) {
+                            formGroup.classList.remove('invalid-input');
+                            formGroup.classList.add('valid-input');
+                        } else {
+                            formGroup.classList.remove('valid-input');
+                            formGroup.classList.add('invalid-input');
+                        }
+                    });
+                }
+            });
+            
+            // Password validation
+            [loginPassword, registerPassword].forEach(input => {
+                if (input) {
+                    input.addEventListener('blur', function() {
+                        const formGroup = this.closest('.form-group');
+                        
+                        if (this.value.trim() === '') {
+                            formGroup.classList.remove('valid-input', 'invalid-input');
+                        } else if (this.value.length >= 6) {
+                            formGroup.classList.remove('invalid-input');
+                            formGroup.classList.add('valid-input');
+                        } else {
+                            formGroup.classList.remove('valid-input');
+                            formGroup.classList.add('invalid-input');
+                        }
+                    });
+                }
+            });
+            
+            // Add playful button animations
+            const buttons = document.querySelectorAll('button, .google-btn');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-3px)';
+                });
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                });
+                button.addEventListener('mousedown', function() {
+                    this.style.transform = 'translateY(1px)';
+                });
+                button.addEventListener('mouseup', function() {
+                    this.style.transform = 'translateY(-3px)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
