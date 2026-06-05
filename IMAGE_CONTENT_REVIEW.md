@@ -199,19 +199,19 @@
 
 | Page/File | Status | Action Required | Asset Replacement |
 |-----------|--------|-----------------|-------------------|
-| VD Emotions (VDTSE1) | Under Review | Verify appropriateness | Possible |
-| VD Colour (VDTCC1) | Under Review | Check contrast | No |
-| VD Size (VDTS1/2) | ✅ OK | No changes needed | No |
-| VC1 (Matching Shape) | Under Review | Verify images | Possible |
-| VC2 (Find Shadow) | Under Review | Verify images | Possible |
-| VC3 (Animal/Bush) | Under Review | Verify images | Possible |
-| VC4 (Missing Objects) | ❌ Inappropriate | **HIGH PRIORITY** | **YES - URGENT** |
-| VFC11 (Numbers) | Under Review | Verify similarity | Possible |
-| VFC12 (Alphabets) | Under Review | Verify fonts | Possible |
-| VFC13 (Pictures) | Under Review | Verify objects | Possible |
-| VFC23 (Shapes) | Under Review | Verify layout | No |
-| FG (Hidden Objects) | Under Review | Verify classification | Possible |
-| BM (Biological Motion) | Prototype | Future development | N/A |
+| VD Emotions (VDTSE1) | ❓ Clinician Review | Verify facial expression appropriateness | TBD after review |
+| VD Colour (VDTCC1) | ✅ OK | Current colored shapes acceptable | No |
+| VD Size (VDTS1/2) | ✅ OK | Geometric shapes appropriate | No |
+| VC1 (Matching Shape) | ❓ Clinician Review | Verify partial shape appropriateness | TBD after review |
+| VC2 (Find Shadow) | ❓ Clinician Review | Verify shadow silhouettes | TBD after review |
+| VC3 (Animal/Bush) | ❓ Clinician Review | Verify occlusion appropriateness | TBD after review |
+| VC4 (Missing Objects) | ❌ INAPPROPRIATE | **HIGH PRIORITY - Replace scene images** | **YES - REQUIRES NEW ASSETS** |
+| VFC11 (Numbers) | ❓ Clinician Review | Verify difficulty level | TBD after review |
+| VFC12 (Alphabets) | ❓ Clinician Review | Verify font variation | TBD after review |
+| VFC13 (Pictures) | ❓ Clinician Review | Verify size variation clarity | TBD after review |
+| VFC23 (Shapes) | ✅ OK | Layout fixed, images acceptable | No |
+| FG (Hidden Objects) | ❓ Verify Location | Confirm if FG contains hidden object tasks | N/A |
+| BM (Biological Motion) | ⏸️ Placeholder | Future development - no assets yet | N/A |
 
 ---
 

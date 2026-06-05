@@ -356,6 +356,30 @@ Observation Tasks
 
 ---
 
+## Biological Motion
+
+Recognition of human and animal movement patterns from motion-based stimuli.
+
+```
+Biological Motion (BM.html)
+└── Category Landing Page (BM.html)
+    ├── Filename: BM.html
+    ├── Title: Biological Motion
+    ├── Purpose: Category placeholder for future assessments
+    └── Status: Prototype/Placeholder
+```
+
+**Navigation:** Direct from assessment-hub.html
+
+**Clinical Relevance:**
+- Social interaction recognition
+- Environmental awareness of living beings
+- Movement pattern recognition
+
+**Note:** Category created as placeholder. No active assessments yet.
+
+---
+
 ## Complete Navigation Map
 
 ### From index.html Dashboard
@@ -406,6 +430,7 @@ https://percepto.app/mirror.html
 | Motion Perception | N/A (index.html) | Yes | 1 |
 | Pursuit & Fixation | N/A (index.html) | Yes | 1 |
 | Observation | N/A (index.html) | Yes | 1 |
+| Biological Motion | BM.html | Yes | 0 |
 
 ---
 
@@ -440,6 +465,7 @@ Category
 - Motion Perception
 - Pursuit & Fixation
 - Observation
+- Biological Motion (placeholder)
 
 ---
 

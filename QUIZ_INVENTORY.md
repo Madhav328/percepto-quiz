@@ -2,7 +2,7 @@
 
 **Date:** June 2026  
 **Version:** 1.0  
-**Total Assessments:** 45+ quizzes and tasks
+**Total Assessments:** 31 active assessments
 
 ---
 
@@ -11,17 +11,18 @@
 This document catalogs every assessment, quiz, screening, and visual task in the Percepto project.
 
 **Assessment Categories:**
-1. Visual Discrimination (9 assessments)
-2. Visual Closure (5 assessments)
-3. Visual Form Constancy (8 assessments)
-4. Visual Memory (2 assessments)
+1. Visual Discrimination (6 assessments)
+2. Visual Closure (4 assessments)
+3. Visual Form Constancy (6 assessments)
+4. Visual Memory (3 assessments)
 5. Visual Sequential Memory (5 assessments)
-6. Visual Spatial Skills (3 assessments)
+6. Visual Spatial Skills (2 assessments)
 7. Visual Neglect (2 assessments)
 8. Figure Ground (2 assessments)
 9. Motion Perception (1 assessment)
 10. Pursuit & Fixation (1 assessment)
 11. Observation Tasks (1 assessment)
+12. Biological Motion (0 assessments - placeholder)
 
 **Menu/Navigation Pages:** 8 landing pages
 **Core System Pages:** 8 pages (login, index, admin, reports, etc.)
@@ -270,7 +271,32 @@ General behavioral observation assessments.
 
 ---
 
-## 12. Additional/Experimental
+## 12. Biological Motion
+
+Recognition of human and animal movement patterns from motion-based stimuli.
+
+### Menu Pages
+| Filename | Title | Purpose | Firebase | Report |
+|----------|-------|---------|----------|--------|
+| BM.html | Biological Motion | Landing page for Biological Motion category | Yes | No |
+
+### Active Assessments
+No active assessments yet. Category created as placeholder for future development.
+
+**Planned Assessments:**
+- Direction of moving dots discrimination
+- Shape represented by moving dots identification
+- Matching moving dot figure to static image
+- Biological motion recognition (point-light displays)
+
+**Notes:**
+- Category page created for future expansion
+- Requires specialized animated assets
+- Planned for future development phase
+
+---
+
+## 13. Additional/Experimental
 
 ### Uncategorized Pages
 | Filename | Title | Purpose | Firebase | Report | Status |
@@ -279,7 +305,7 @@ General behavioral observation assessments.
 
 ---
 
-## 13. System/Core Pages
+## 14. System/Core Pages
 
 These are not assessments but essential system infrastructure.
 
@@ -323,7 +349,7 @@ These are not assessments but essential system infrastructure.
 | Motion Perception | 1 active |
 | Pursuit & Fixation | 1 active |
 | Observation | 1 active |
-| **Total Active Assessments** | **33** |
+| **Total Active Assessments** | **31** |
 | **Total Menu Pages** | **12** |
 | **Total System Pages** | **9** |
 | **Grand Total** | **54** |

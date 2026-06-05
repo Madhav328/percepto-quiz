@@ -51,7 +51,7 @@ The platform provides:
 
 ### Gamified Visual-Perception Assessments
 - Child-friendly, engaging interfaces that reduce assessment anxiety
-- Interactive tasks across 11 visual-perception domains
+- Interactive tasks across 12 visual-perception domains
 - Immediate feedback to maintain engagement
 - Adaptive difficulty levels for varying abilities
 
@@ -83,7 +83,7 @@ The platform provides:
 
 ## Assessment Library
 
-Percepto currently includes **33 assessments across 11 categories**, providing comprehensive coverage of visual-perception domains relevant to CVI screening:
+Percepto currently includes **31 assessments across 12 categories**, providing comprehensive coverage of visual-perception domains relevant to CVI screening:
 
 | Category | Assessments | Description |
 |----------|-------------|-------------|
@@ -98,6 +98,9 @@ Percepto currently includes **33 assessments across 11 categories**, providing c
 | **Motion Perception** | 1 | Detecting and tracking moving objects |
 | **Pursuit & Fixation** | 1 | Eye movement control and visual attention (experimental) |
 | **Observation Tasks** | 1 | Structured behavioral observation for functional profiling |
+| **Biological Motion** | 0* | Recognition of human and animal movement patterns |
+
+*Biological Motion category created as placeholder for future development.
 
 ### Assessment Levels
 

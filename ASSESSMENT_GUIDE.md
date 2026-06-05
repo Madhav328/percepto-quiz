@@ -482,6 +482,48 @@ Behavioral observation provides:
 
 ---
 
+## 12. Biological Motion
+
+### What It Evaluates
+Recognition of human and animal movement patterns from motion-based stimuli, including the ability to detect animate motion from point-light displays and understand the direction and nature of biological movement.
+
+### Why It Matters
+Biological motion recognition supports:
+- **Social Interaction:** Recognizing human movement and gestures
+- **Environmental Awareness:** Detecting living beings in surroundings
+- **Safety:** Identifying moving people/animals in environment
+- **Development:** Understanding animate vs. inanimate motion
+
+### Current Status
+**This category is a placeholder for future development.** No active assessments are currently available.
+
+### Planned Assessment Types
+1. **Direction of Moving Dots:** Discriminate motion direction in point-light displays
+2. **Shape Recognition from Motion:** Identify forms represented by moving dot patterns
+3. **Biological Motion Matching:** Match moving figures to static images
+4. **Point-Light Recognition:** Identify human/animal actions from point-light walkers
+
+### Clinical Interpretation (When Available)
+
+**Typical Performance:**
+- Recognition of biological motion from minimal cues
+- Accurate interpretation of movement direction
+- Understanding of animate motion patterns
+
+**Areas of Concern:**
+- Difficulty recognizing biological motion
+- Impaired social cue recognition
+- Reduced environmental awareness of moving beings
+
+**Intervention Implications:**
+- Explicit social skills training
+- Environmental safety modifications
+- Compensatory strategies for social interaction
+
+**Note:** Biological Motion assessments require specialized animated stimuli and are planned for a future development phase. The category page exists as a placeholder.
+
+---
+
 ## General Interpretation Guidelines
 
 ### Score Interpretation
