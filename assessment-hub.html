@@ -35,30 +35,35 @@
         /* Header */
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
+            margin-bottom: 25px;
+            padding: 20px 15px;
             border-bottom: 3px solid var(--cvi-primary);
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
         }
 
         .header h1 {
             color: var(--cvi-primary);
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 2em;
+            margin-bottom: 8px;
+            line-height: 1.2;
         }
 
         .header p {
             color: #666;
-            font-size: 1.1em;
+            font-size: 1em;
+            margin: 0;
         }
 
         .disclaimer {
             background: linear-gradient(135deg, #fff3cd, #ffeaa7);
             border-left: 5px solid #f39c12;
-            padding: 15px 20px;
-            margin: 20px 0;
+            padding: 12px 15px;
+            margin: 15px 0;
             border-radius: 10px;
-            font-size: 0.95em;
+            font-size: 0.9em;
             color: #856404;
+            line-height: 1.4;
         }
 
         .disclaimer strong {
@@ -261,21 +266,80 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 15px;
+                border-radius: 15px;
+            }
+
+            .header {
+                padding: 15px 10px;
+                margin-bottom: 20px;
+            }
+
             .header h1 {
-                font-size: 1.8em;
+                font-size: 1.5em;
+                margin-bottom: 5px;
             }
 
-            .category-header h2 {
-                font-size: 1.4em;
+            .header p {
+                font-size: 0.9em;
             }
 
-            .assessment-grid {
-                grid-template-columns: 1fr;
+            .disclaimer {
+                padding: 10px 12px;
+                font-size: 0.85em;
+                margin: 10px 0;
             }
 
             .nav-bar {
                 flex-direction: column;
                 text-align: center;
+                gap: 8px;
+            }
+
+            .nav-links {
+                gap: 8px;
+                justify-content: center;
+            }
+
+            .nav-links a {
+                padding: 8px 14px;
+                font-size: 0.85em;
+            }
+
+            .stats-overview {
+                gap: 10px;
+            }
+
+            .stat-card {
+                padding: 12px;
+                min-width: 100px;
+            }
+
+            .stat-card .number {
+                font-size: 1.8em;
+            }
+
+            .category-header h2 {
+                font-size: 1.3em;
+            }
+
+            .assessment-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .assessment-card {
+                padding: 15px;
+            }
+
+            .legend {
+                gap: 12px;
+                margin: 20px 0;
             }
         }
     </style>
