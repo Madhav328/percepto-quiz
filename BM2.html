@@ -186,7 +186,7 @@
                 <li><strong>Correct Answers:</strong> <span id="total-correct"></span></li>
                 <li><strong>Incorrect Answers:</strong> <span id="total-incorrect"></span></li>
             </ul>
-            <a href="BM.html" style="text-decoration: none;"><button>Return to Biological Motion</button></a>
+            <a href="BM.html" style="text-decoration: none;"><button>Return</button></a>
         </div>
     </div>
 
@@ -388,37 +388,118 @@
             document.getElementById('total-correct').textContent = score;
             document.getElementById('total-incorrect').textContent = incorrectAnswers;
             
-            saveReport();
+            saveQuizResults(score, totalTime.toFixed(2), avgTime.toFixed(2), firstTapTime, totalTaps, score, incorrectAnswers);
+            fetchPreviousAttempts();
         }
 
-        function saveReport() {
-            const report = {
-                date: new Date().toLocaleString(),
-                score: `${score}/${questions.length}`,
-                totalTime: ((Date.now() - totalStartTime) / 1000).toFixed(2) + 's',
-                correct: score,
-                incorrect: incorrectAnswers
-            };
-            
-            let reports = JSON.parse(localStorage.getItem('bm2_reports') || '[]');
-            reports.unshift(report);
-            localStorage.setItem('bm2_reports', JSON.stringify(reports));
-            
-            displayReports();
+        async function fetchPreviousAttempts() {
+            try {
+                const user = auth.currentUser;
+                if (!user) return;
+                
+                let path;
+                const reportList = document.getElementById('report-list');
+                reportList.innerHTML = '<h3>Previous Attempts</h3>';
+                
+                if (currentPatientId && doctorId) {
+                    path = `doctors/${doctorId}/patients/${currentPatientId}/quiz/BM2`;
+                } else {
+                    const roleSnapshot = await database.ref(`roles/${user.uid}`).once('value');
+                    const role = roleSnapshot.val();
+                    if (role === 'doctor') {
+                        path = `doctors/${user.uid}/quiz/BM2`;
+                    } else {
+                        path = `users/${user.uid}/quiz/BM2`;
+                    }
+                }
+                
+                const resultsSnapshot = await database.ref(path).once('value');
+                
+                if (resultsSnapshot.exists()) {
+                    const results = [];
+                    resultsSnapshot.forEach(childSnapshot => {
+                        results.push({ id: childSnapshot.key, ...childSnapshot.val() });
+                    });
+                    results.sort((a, b) => b.timestamp - a.timestamp);
+                    const recentResults = results.slice(0, 5);
+                    
+                    if (recentResults.length > 0) {
+                        recentResults.forEach(result => {
+                            const timestamp = result.timestamp;
+                            const date = typeof timestamp === 'number' ? new Date(timestamp) : new Date(timestamp);
+                            const formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+                            
+                            const attemptItem = document.createElement('div');
+                            attemptItem.className = 'attempt-item';
+                            attemptItem.style.cssText = 'background: #f9f9f9; padding: 15px; margin: 10px 0; border-radius: 8px;';
+                            attemptItem.innerHTML = `<strong>${formattedDate}</strong><br>Score: ${result.score}/${questions.length}, Time: ${result.totalTime || 'N/A'}s`;
+                            reportList.appendChild(attemptItem);
+                        });
+                    } else {
+                        reportList.innerHTML += '<p>No previous attempts found.</p>';
+                    }
+                } else {
+                    reportList.innerHTML += '<p>No previous attempts found.</p>';
+                }
+            } catch (error) {
+                console.error('Error fetching previous attempts:', error);
+            }
         }
 
-        function displayReports() {
-            const reports = JSON.parse(localStorage.getItem('bm2_reports') || '[]');
-            const list = document.getElementById('report-list');
-            list.innerHTML = reports.map(r => `<li style="background: #f9f9f9; padding: 15px; margin: 10px 0; border-radius: 8px;"><strong>${r.date}</strong><br>Score: ${r.score}, Time: ${r.totalTime}</li>`).join('');
+        async function saveQuizResults(score, totalTime, averageTime, firstTapTime, totalTaps, correctAnswers, incorrectAnswers) {
+            const user = auth.currentUser;
+            if (!user) return;
+
+            try {
+                const timestamp = Date.now();
+                let path;
+
+                if (currentPatientId && doctorId) {
+                    path = `doctors/${doctorId}/patients/${currentPatientId}/quiz/BM2/${timestamp}`;
+                } else {
+                    const roleSnapshot = await database.ref(`roles/${user.uid}`).once('value');
+                    const role = roleSnapshot.val();
+                    if (role === 'doctor') {
+                        path = `doctors/${user.uid}/quiz/BM2/${timestamp}`;
+                    } else {
+                        path = `users/${user.uid}/quiz/BM2/${timestamp}`;
+                    }
+                }
+
+                await database.ref(path).set({
+                    score, totalTime, averageTime, firstTapTime, totalTaps, correctAnswers, incorrectAnswers, timestamp
+                });
+            } catch (error) {
+                console.error('Error saving quiz results:', error);
+            }
         }
 
-        function clearReport() {
-            localStorage.removeItem('bm2_reports');
-            document.getElementById('report-list').innerHTML = '';
-        }
+        async function clearReport() {
+            const user = auth.currentUser;
+            if (!user) {
+                alert('You need to be logged in to clear the report.');
+                return;
+            }
 
-        displayReports();
+            try {
+                let path;
+                if (currentPatientId && doctorId) {
+                    path = `doctors/${doctorId}/patients/${currentPatientId}/quiz/BM2`;
+                } else {
+                    const roleSnapshot = await database.ref(`roles/${user.uid}`).once('value');
+                    const role = roleSnapshot.val();
+                    if (role === 'doctor') {
+                        path = `doctors/${user.uid}/quiz/BM2`;
+                    } else {
+                        path = `users/${user.uid}/quiz/BM2`;
+                    }
+                }
+                await database.ref(path).remove();
+                document.getElementById('report-list').innerHTML = '<h3>Previous Attempts</h3><p>Reports cleared.</p>';
+            } catch (error) {
+                console.error('Error clearing reports:', error);
+            }
+        }
     </script>
 </body>
 </html>
