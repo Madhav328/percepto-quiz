@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Percepto - Visual Perception Screening Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="translate-styles.css">
+    <link rel="stylesheet" href="cvi-colors.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Comic Sans MS', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .nav-logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--cvi-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: var(--cvi-primary);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--cvi-primary) 0%, var(--cvi-secondary) 100%);
+            color: white;
+            padding: 60px 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(93, 173, 226, 0.3);
+        }
+
+        .hero h1 {
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+
+        /* Section Styling */
+        .section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .section h2 {
+            color: var(--cvi-primary);
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section h2 i {
+            font-size: 0.9em;
+        }
+
+        /* Category Grid */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .category-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid var(--cvi-primary);
+            transition: all 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .category-card h3 {
+            color: var(--cvi-primary);
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-card p {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, var(--cvi-primary), var(--cvi-secondary));
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        /* Disclaimer Box */
+        .disclaimer-box {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border-left: 5px solid #f39c12;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+
+        .disclaimer-box strong {
+            color: #856404;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .disclaimer-box p {
+            color: #856404;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        /* CTA Buttons */
+        .cta-section {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--cvi-primary) 0%, var(--cvi-secondary) 100%);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(93, 173, 226, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(93, 173, 226, 0.5);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--cvi-primary);
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            border: 2px solid var(--cvi-primary);
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--cvi-primary);
+            color: white;
+        }
+
+        /* How It Works */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .step-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--cvi-primary), var(--cvi-secondary));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            margin: 0 auto 15px;
+        }
+
+        .step h4 {
+            color: var(--cvi-primary);
+            margin-bottom: 10px;
+        }
+
+        /* Target Audience */
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .audience-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .audience-card:hover {
+            border-color: var(--cvi-primary);
+        }
+
+        .audience-card i {
+            font-size: 2em;
+            color: var(--cvi-primary);
+            margin-bottom: 10px;
+        }
+
+        .audience-card h4 {
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .audience-card p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #888;
+            margin-top: 40px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+            
+            .nav-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .section {
+                padding: 25px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="nav-bar">
+            <div class="nav-logo">
+                <i class="fas fa-eye"></i>
+                Percepto
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Dashboard</a>
+                <a href="assessment-hub.html">Assessment Hub</a>
+                <a href="report.html">Reports</a>
+                <a href="login.html">Login</a>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Percepto</h1>
+            <p>A Digital Visual-Perception Screening Platform for Early Identification of Cerebral Visual Impairment (CVI) and related visual processing difficulties.</p>
+        </section>
+
+        <!-- The Problem -->
+        <section class="section">
+            <h2><i class="fas fa-exclamation-circle"></i> The Problem</h2>
+            <p><strong>Cerebral Visual Impairment (CVI) is frequently underdiagnosed.</strong> Children with CVI may appear to see normally during casual observation while struggling significantly with visual processing tasks.</p>
+            <ul style="margin: 15px 0 15px 30px; color: #555; line-height: 1.8;">
+                <li><strong>Limited Access:</strong> Traditional assessments require specialized equipment and trained professionals</li>
+                <li><strong>Specialist Shortage:</strong> Pediatric ophthalmologists and CVI specialists are scarce, particularly in underserved regions</li>
+                <li><strong>Delayed Identification:</strong> Many at-risk children never receive evaluation, delaying critical early intervention</li>
+                <li><strong>Cost Barriers:</strong> Existing tools are expensive, limiting deployment in schools and community programs</li>
+            </ul>
+            <p>Early identification can significantly improve outcomes through targeted interventions, accommodations, and therapy.</p>
+        </section>
+
+        <!-- Our Solution -->
+        <section class="section">
+            <h2><i class="fas fa-lightbulb"></i> Our Solution</h2>
+            <p><strong>Percepto transforms visual-perception assessment into structured, interactive, gamified tasks.</strong></p>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-icon"><i class="fas fa-clipboard-list"></i></div>
+                    <h4>1. Select Assessment</h4>
+                    <p>Choose from 33+ validated visual perception assessments organized by category</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon"><i class="fas fa-play-circle"></i></div>
+                    <h4>2. Complete Tasks</h4>
+                    <p>Interactive, child-friendly tasks with immediate feedback and engagement</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon"><i class="fas fa-chart-bar"></i></div>
+                    <h4>3. Review Results</h4>
+                    <p>Comprehensive reports with scores, progress tracking, and clinical insights</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon"><i class="fas fa-user-md"></i></div>
+                    <h4>4. Clinical Interpretation</h4>
+                    <p>Results interpreted by qualified clinicians for intervention planning</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Target Audience -->
+        <section class="section">
+            <h2><i class="fas fa-users"></i> Designed For</h2>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <i class="fas fa-user-md"></i>
+                    <h4>Clinicians</h4>
+                    <p>Ophthalmologists, optometrists, and vision therapists</p>
+                </div>
+                <div class="audience-card">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h4>Educators</h4>
+                    <p>Special education teachers and occupational therapists</p>
+                </div>
+                <div class="audience-card">
+                    <i class="fas fa-flask"></i>
+                    <h4>Researchers</h4>
+                    <p>Studying visual perception and development</p>
+                </div>
+                <div class="audience-card">
+                    <i class="fas fa-hospital"></i>
+                    <h4>Hospitals</h4>
+                    <p>Pediatric and rehabilitation departments</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Assessment Categories -->
+        <section class="section">
+            <h2><i class="fas fa-th-large"></i> Assessment Categories</h2>
+            <p>Percepto evaluates 11 core visual perception domains through specialized interactive assessments:</p>
+            
+            <div class="category-grid">
+                <div class="category-card">
+                    <h3><i class="fas fa-clone"></i> Visual Discrimination</h3>
+                    <p>Ability to identify differences and similarities between shapes, colors, sizes, and patterns. Essential for reading and mathematics.</p>
+                </div>
+                <div class="category-card">
+                    <h3><i class="fas fa-puzzle-piece"></i> Visual Closure</h3>
+                    <p>Ability to recognize objects when parts are missing or obscured. Important for object recognition in clutter.</p>
+                </div>
+                <div class="category-card">
+                    <h3><i class="fas fa-shapes"></i> Visual Form Constancy</h3>
+                    <p>Ability to recognize forms regardless of size, color, position, or orientation. Critical for reading different fonts.</p>
+                </div>
+                <div class="category-card">
+                    <h3><i class="fas fa-bookmark"></i> Visual Memory</h3>
+                    <p>Ability to remember visual information and recall it later. Important for copying tasks and spelling.</p>
+                </div>
+                <div class="category-card">
+                    <h3><i class="fas fa-list-ol"></i> Visual Sequential Memory</h3>
+                    <p>Ability to remember sequences of visual stimuli in order. Critical for daily living skills and following instructions.</p>
+                </div>
+                <div class="category-card">
+                    <h3><i class="fas fa-arrows-alt"></i> Visual Spatial Skills</h3>
+                    <p>Ability to understand spatial relationships and navigate space. Important for map reading and sports.</p>
+                </div>
+                <div class="category-card">
+                    <h3><i class="fas fa-columns"></i> Visual Neglect</h3>
+                    <p>Assessment of visual field awareness and attention to both sides of space. Important for post-stroke screening.</p>
+                </div>
+                <div class="category-card">
+                    <h3><i class="fas fa-layer-group"></i> Figure Ground</h3>
+                    <p>Ability to distinguish objects from their background. Essential for visual scanning and reading.</p>
+                </div>
+                <div class="category-card">
+                    <h3><i class="fas fa-running"></i> Motion Perception</h3>
+                    <p>Ability to detect and track moving objects. Important for sports participation and safe navigation.</p>
+                </div>
+                <div class="category-card">
+                    <h3><i class="fas fa-eye"></i> Pursuit & Fixation</h3>
+                    <p>Eye movement control and visual attention. Assesses oculomotor control for reading and attention.</p>
+                </div>
+                <div class="category-card">
+                    <h3><i class="fas fa-clipboard-check"></i> Observation Tasks</h3>
+                    <p>Structured behavioral observation for comprehensive functional vision profiling and environmental assessment.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistics -->
+        <section class="section">
+            <h2><i class="fas fa-chart-pie"></i> Assessment Library</h2>
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-number">33+</span>
+                    <span class="stat-label">Active Assessments</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">11</span>
+                    <span class="stat-label">Categories</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">2</span>
+                    <span class="stat-label">Difficulty Levels</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Screening Coverage</span>
+                </div>
+            </div>
+            <p style="text-align: center; color: #666; margin-top: 20px;">Each assessment is available in multiple difficulty levels to accommodate varying abilities and track progress over time.</p>
+        </section>
+
+        <!-- Professional Disclaimer -->
+        <section class="section">
+            <h2><i class="fas fa-exclamation-triangle"></i> How Results Should Be Used</h2>
+            <div class="disclaimer-box">
+                <strong><i class="fas fa-info-circle"></i> Clinical Disclaimer</strong>
+                <p>Percepto is a visual perception screening and profiling aid. It is not a diagnostic device. Results should be interpreted by a qualified clinician. These assessments are designed for screening purposes only and do not replace comprehensive clinical evaluation.</p>
+            </div>
+            <p>Percepto assessments provide valuable screening data that can:</p>
+            <ul style="margin: 15px 0 15px 30px; color: #555;">
+                <li>Identify areas of visual processing strength and challenge</li>
+                <li>Track progress over time with quantitative metrics</li>
+                <li>Support clinical decision-making and intervention planning</li>
+                <li>Provide objective data for educational and therapeutic planning</li>
+                <li>Complement, but not replace, comprehensive clinical evaluation</li>
+            </ul>
+        </section>
+
+        <!-- Current Status -->
+        <section class="section">
+            <h2><i class="fas fa-flask"></i> Current Status</h2>
+            <p><strong>Percepto is currently a pilot-stage prototype.</strong> It is suitable for demonstrations, research studies with ethics approval, and small-scale pilot programs.</p>
+            
+            <h3 style="color: var(--cvi-primary); margin: 20px 0 10px 0;">Not Clinically Validated</h3>
+            <ul style="margin: 10px 0 15px 30px; color: #555;">
+                <li>No normative data established</li>
+                <li>Not validated against gold-standard assessments</li>
+                <li>Not peer-reviewed through clinical publication</li>
+                <li>Not regulatory approved (CE, FDA, etc.)</li>
+            </ul>
+            
+            <h3 style="color: var(--cvi-primary); margin: 20px 0 10px 0;">Technical Capabilities</h3>
+            <ul style="margin: 10px 0 15px 30px; color: #555;">
+                <li><strong>33 assessments</strong> operational across 11 categories</li>
+                <li><strong>Firebase integration</strong> for authentication and data storage</li>
+                <li><strong>Reporting system</strong> with progress tracking</li>
+                <li><strong>Multi-user support</strong> for doctors and patients</li>
+            </ul>
+            
+            <p style="margin-top: 20px; color: #666; font-style: italic;">Clinical validation studies are planned. The platform is ready for pilot testing to gather feedback and validate usability.</p>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section">
+            <h2 style="color: var(--cvi-primary); margin-bottom: 15px;">Ready to Explore?</h2>
+            <p style="color: #666; margin-bottom: 25px;">Access the complete assessment library and discover how Percepto can support your clinical or educational practice.</p>
+            <div class="cta-buttons">
+                <a href="assessment-hub.html" class="btn-primary">
+                    <i class="fas fa-th-large"></i> Assessment Hub
+                </a>
+                <a href="index.html" class="btn-secondary">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p><strong>Percepto</strong> - Visualizing Potential. Enabling Early Identification.</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">A digital visual-perception screening platform for CVI and related visual processing difficulties.</p>
+            <p style="margin-top: 15px;">
+                <a href="QUIZ_INVENTORY.md" style="color: var(--cvi-primary);">Assessment Catalog</a> | 
+                <a href="README.md" style="color: var(--cvi-primary);">Documentation</a> | 
+                <a href="ASSESSMENT_GUIDE.md" style="color: var(--cvi-primary);">Clinician Guide</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

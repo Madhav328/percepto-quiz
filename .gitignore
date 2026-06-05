@@ -17,3 +17,54 @@ ENV/
 # System files
 .DS_Store
 Thumbs.db
+desktop.ini
+*.tmp
+*.temp
+*.bak
+*.backup
+*~
+
+# Git (for deploy/share packages, not local repo)
+# NOTE: Keep .git for local development, exclude when creating deploy zip
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build artifacts
+dist/
+build/
+
+# Local server files
+server.py
+
+# Documentation that's not for deploy
+# PROJECT_AUDIT*.md - Keep for audit trail
+# firebase-security-rules.md - Keep this for deployment guidance
+
+# Backup files (keep until verified, exclude from deploy)
+login_backup.html
+maintenance.html
+extra.html
+
+# Internal audit documents (keep in repo, exclude from user deploy)
+CURRENT_STATE_AUDIT.md
+PROJECT_STRUCTURE.md
+LINK_AUDIT.md
+REFACTOR_REPORT.md
+# FINAL_AUDIT.md - Keep for final validation record
+# DEPLOYMENT_CHECKLIST.md - Keep this for deployment reference
+
+# Node modules (if ever added)
+node_modules/
+
+# OS generated files
+*.swp
+*.swo
+*~
+._*
+
+# Archive files
+*.zip
+*.tar.gz
+*.7z

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visual Perceptual Skills</title>
+    <title>Percepto - Visual Perception Dashboard</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="translate-styles.css">
     <link rel="stylesheet" href="cvi-colors.css">
@@ -1175,6 +1175,8 @@
             <h1 style="margin: 0 0 5px 0; font-size: 16px;">Time for some fun!</h1>
             <!-- Quiz Type Selection -->
             <div class="quiz-types" id="quiz-type" style="gap: 5px;">
+                <a href="about-percepto.html" style="text-decoration: none;"><button class="quiz-button" style="min-height: 30px; padding: 3px 5px; font-size: 0.9rem; background-color: #9b59b6;"><i class="fas fa-info-circle"></i> About Percepto</button></a>
+                <a href="assessment-hub.html" style="text-decoration: none;"><button class="quiz-button" style="min-height: 30px; padding: 3px 5px; font-size: 0.9rem; background-color: #e74c3c;"><i class="fas fa-th-large"></i> Assessment Hub</button></a>
                 <a href="mirror.html" style="text-decoration: none;"><button class="quiz-button" style="min-height: 30px; padding: 3px 5px; font-size: 0.9rem;"><i class="fas fa-user"></i> Fixation to Mirror</button></a>
                 <a href="VD.html" style="text-decoration: none;"><button class="quiz-button" style="min-height: 30px; padding: 3px 5px; font-size: 0.9rem;"><i class="fas fa-clone"></i> Visual Discrimination</button></a>
                 <a href="VC.html" style="text-decoration: none;"><button class="quiz-button" style="min-height: 30px; padding: 3px 5px; font-size: 0.9rem;"><i class="fas fa-puzzle-piece"></i> Visual Closure</button></a>
@@ -1185,6 +1187,7 @@
                 <a href="VSM.html" style="text-decoration: none;"><button class="quiz-button" style="min-height: 30px; padding: 3px 5px; font-size: 0.9rem;"><i class="fas fa-list-ol"></i> Visual Sequential Memory</button></a>
                 <a href="VM1.html" style="text-decoration: none;"><button class="quiz-button" style="min-height: 30px; padding: 3px 5px; font-size: 0.9rem;"><i class="fas fa-bookmark"></i> Visual Memory</button></a>
                 <a href="Vmotion1.html" style="text-decoration: none;"><button class="quiz-button" style="min-height: 30px; padding: 3px 5px; font-size: 0.9rem;"><i class="fas fa-running"></i> Motion Perception</button></a>
+                <a href="observation_quiz.html" style="text-decoration: none;"><button class="quiz-button" style="min-height: 30px; padding: 3px 5px; font-size: 0.9rem;"><i class="fas fa-clipboard-check"></i> Observation Quiz</button></a>
             </div>
 
             <!-- Quiz Questions -->
@@ -1216,22 +1219,12 @@
         <!-- Firebase Realtime Database -->
         <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
-        <script>
-            // Firebase configuration
-            const firebaseConfig = {
-                apiKey: "AIzaSyDFENL5Z_2Cewh4p6zp_BZtxL9n0di-9u8",
-                authDomain: "projeccvi.firebaseapp.com",
-                projectId: "projeccvi",
-                storageBucket: "projeccvi.firebasestorage.app",
-                messagingSenderId: "279067566247",
-                appId: "1:279067566247:web:9cf00f7bf1ea3549fabb82"
-            };
+        <!-- Shared Firebase Configuration and Utilities -->
+        <script src="js/firebase-config.js"></script>
+        <script src="js/auth-utils.js"></script>
 
-            // Initialize Firebase
-            firebase.initializeApp(firebaseConfig);
-            const auth = firebase.auth();
-            const db = firebase.firestore();
-            const database = firebase.database();
+        <script>
+            // Note: auth, db, database are now initialized by js/firebase-config.js
             
             // Handle relative paths for both local and GitHub Pages
             function getPath(page) {

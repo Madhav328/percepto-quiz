@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visual Perceptual Skills</title>
+    <title>Visual Perception Report - Percepto</title>
     
     <!-- Chart.js for data visualization -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -109,7 +109,7 @@
             background-color: #1976D2;
         }
 
-        #cvi-risk-result {
+        #screening-result {
             font-size: 24px;
             font-weight: bold;
             text-align: center;
@@ -146,17 +146,17 @@
             text-align: center;
         }
 
-        .high-risk {
+        .attention-needed {
             background-color: #ff6666;
             color: white;
         }
 
-        .medium-risk {
+        .moderate-support {
             background-color: #ffcc00;
             color: #333;
         }
 
-        .low-risk {
+        .meeting-milestones {
             background-color: #66cc66;
             color: white;
         }
@@ -265,12 +265,78 @@
         <div id="error-message"></div>
         <div id="loading">Loading report...</div>
 
-        <div id="quiz-container">
-            <h1>CVI Report</h1>
-            <p>This report shows your latest performance on each quiz.</p>
-            <div class="button-group">
-                <a href="index.html" style="text-decoration: none;"><button id="home-button">Return Home</button></a>
+        <!-- Professional Report Header -->
+        <div id="report-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px;">
+                <div>
+                    <h1 style="margin: 0 0 10px 0; font-size: 2em; color: white;">Visual Perception Report</h1>
+                    <p style="margin: 0; opacity: 0.9; font-size: 1.1em;">Percepto Visual Screening Platform</p>
+                </div>
+                <div style="text-align: right; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; min-width: 200px;">
+                    <div style="font-size: 0.9em; opacity: 0.8; margin-bottom: 5px;">Report Date</div>
+                    <div id="report-date" style="font-size: 1.1em; font-weight: bold;">Loading...</div>
+                </div>
             </div>
+            
+            <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.3); display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                <div>
+                    <div style="font-size: 0.85em; opacity: 0.8; margin-bottom: 5px;">Patient Name</div>
+                    <div id="patient-name-display" style="font-size: 1.2em; font-weight: bold;">Loading...</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.85em; opacity: 0.8; margin-bottom: 5px;">Assessed By</div>
+                    <div id="assessor-name" style="font-size: 1.2em; font-weight: bold;">Percepto System</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.85em; opacity: 0.8; margin-bottom: 5px;">Total Assessments</div>
+                    <div style="font-size: 1.2em; font-weight: bold;">33 Available</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.85em; opacity: 0.8; margin-bottom: 5px;">Report Status</div>
+                    <div style="font-size: 1.2em; font-weight: bold; color: #ffd700;">Screening Complete</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Clinical Disclaimer -->
+        <div style="background-color: #fff3cd; border-left: 5px solid #f39c12; color: #856404; padding: 20px; border-radius: 5px; margin: 20px 0; font-size: 1em;">
+            <strong style="display: block; margin-bottom: 8px; font-size: 1.1em;"><i class="fas fa-exclamation-triangle"></i> Clinical Disclaimer</strong>
+            <p style="margin: 0; line-height: 1.5;">Percepto is a visual perception screening and profiling aid. It is <strong>not a diagnostic device</strong>. Results should be interpreted by a qualified clinician. These assessments are designed for screening purposes only and do not replace comprehensive clinical evaluation.</p>
+        </div>
+
+        <!-- Score Interpretation Guide -->
+        <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h3 style="margin: 0 0 15px 0; color: #333; font-size: 1.1em;">Score Interpretation Guide</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; font-size: 0.9em;">
+                <div style="padding: 10px; background: #d4edda; border-radius: 5px; border-left: 4px solid #28a745;">
+                    <strong style="color: #155724;">Excellent (80-100%)</strong><br>
+                    <span style="color: #155724; font-size: 0.9em;">Skill well-developed</span>
+                </div>
+                <div style="padding: 10px; background: #d1ecf1; border-radius: 5px; border-left: 4px solid #17a2b8;">
+                    <strong style="color: #0c5460;">Good (60-79%)</strong><br>
+                    <span style="color: #0c5460; font-size: 0.9em;">Skill present, may benefit from support</span>
+                </div>
+                <div style="padding: 10px; background: #fff3cd; border-radius: 5px; border-left: 4px solid #ffc107;">
+                    <strong style="color: #856404;">Fair (40-59%)</strong><br>
+                    <span style="color: #856404; font-size: 0.9em;">Skill emerging, intervention helpful</span>
+                </div>
+                <div style="padding: 10px; background: #f8d7da; border-radius: 5px; border-left: 4px solid #dc3545;">
+                    <strong style="color: #721c24;">Needs Support (&lt;40%)</strong><br>
+                    <span style="color: #721c24; font-size: 0.9em;">Significant difficulty, intervention recommended</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="button-group" style="margin: 20px 0; text-align: center;">
+            <a href="index.html" style="text-decoration: none;"><button id="home-button" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"><i class="fas fa-home"></i> Return to Dashboard</button></a>
+            <a href="assessment-hub.html" style="text-decoration: none;"><button style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"><i class="fas fa-th-large"></i> Assessment Hub</button></a>
+            <a href="about-percepto.html" style="text-decoration: none;"><button style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"><i class="fas fa-info-circle"></i> About Percepto</button></a>
+        </div>
+
+        <!-- Original quiz container content preserved -->
+        <div id="quiz-container" style="display: none;">
+            <p>This report shows visual-perception exercise results for screening purposes.</p>
         </div>
 
         <div id="report-container">
@@ -360,9 +426,12 @@
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
         
-        <!-- Firebase Config -->
+        <!-- Shared Firebase Configuration -->
+        <script src="js/firebase-config.js"></script>
+        
         <script>
-            // Firebase configuration
+            // Initialize Firebase with this page's specific config (SDK v8)
+            // Note: Using same config, but page-specific SDK version
             const firebaseConfig = {
                 apiKey: "AIzaSyDFENL5Z_2Cewh4p6zp_BZtxL9n0di-9u8",
                 authDomain: "projeccvi.firebaseapp.com",
@@ -371,9 +440,13 @@
                 messagingSenderId: "279067566247",
                 appId: "1:279067566247:web:9cf00f7bf1ea3549fabb82"
             };
-
-            // Initialize Firebase
-            firebase.initializeApp(firebaseConfig);
+            
+            // Only initialize if not already done (safe guard)
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+            
+            // Page-specific Firebase service references
             const auth = firebase.auth();
             const db = firebase.database();
             const dbRef = firebase.database();

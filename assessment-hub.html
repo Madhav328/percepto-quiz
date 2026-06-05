@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percepto Assessment Hub - Complete Assessment Library</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="translate-styles.css">
+    <link rel="stylesheet" href="cvi-colors.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Segoe UI', Arial, sans-serif;
+            background-color: var(--cvi-background);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--cvi-primary);
+        }
+
+        .header h1 {
+            color: var(--cvi-primary);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .disclaimer {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border-left: 5px solid #f39c12;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            font-size: 0.95em;
+            color: #856404;
+        }
+
+        .disclaimer strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            padding: 10px 20px;
+            background: var(--cvi-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .nav-links a:hover {
+            background: var(--cvi-secondary);
+            transform: translateY(-2px);
+        }
+
+        /* Stats Overview */
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--cvi-primary), var(--cvi-secondary));
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .stat-card .number {
+            font-size: 2.5em;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-card .label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        /* Category Sections */
+        .category {
+            margin-bottom: 40px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid var(--cvi-primary);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .category-header i {
+            font-size: 2em;
+            color: var(--cvi-primary);
+        }
+
+        .category-header h2 {
+            color: #333;
+            font-size: 1.8em;
+        }
+
+        .category-description {
+            color: #666;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        /* Assessment Grid */
+        .assessment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .assessment-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .assessment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border-color: var(--cvi-primary);
+        }
+
+        .assessment-card h3 {
+            color: var(--cvi-primary);
+            font-size: 1.2em;
+            margin-bottom: 8px;
+        }
+
+        .assessment-card .filename {
+            font-family: monospace;
+            font-size: 0.8em;
+            color: #888;
+            background: #f0f0f0;
+            padding: 3px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .assessment-card .purpose {
+            color: #555;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+        }
+
+        .assessment-card .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .status.active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status.prototype {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status.experimental {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .assessment-card a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: var(--cvi-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .assessment-card a:hover {
+            background: var(--cvi-secondary);
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .category-header h2 {
+                font-size: 1.4em;
+            }
+
+            .assessment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1><i class="fas fa-clipboard-list"></i> Percepto Assessment Hub</h1>
+            <p>Visual-Perception Screening for CVI and Related Difficulties</p>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="disclaimer">
+            <strong><i class="fas fa-exclamation-triangle"></i> Clinical Disclaimer</strong>
+            Percepto is a visual perception screening and profiling aid. It is not a diagnostic device. 
+            Results should be interpreted by a qualified clinician. These assessments are designed for 
+            screening purposes only and do not replace comprehensive clinical evaluation.
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-bar">
+            <div class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="about-percepto.html"><i class="fas fa-info-circle"></i> About</a>
+                <a href="report.html"><i class="fas fa-chart-bar"></i> Reports</a>
+                <a href="patients.html"><i class="fas fa-users"></i> Patients</a>
+                <a href="ASSESSMENT_GUIDE.md"><i class="fas fa-book"></i> Clinician Guide</a>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-overview">
+            <div class="stat-card">
+                <span class="number">33+</span>
+                <span class="label">Active Assessments</span>
+            </div>
+            <div class="stat-card">
+                <span class="number">11</span>
+                <span class="label">Categories</span>
+            </div>
+            <div class="stat-card">
+                <span class="number">2</span>
+                <span class="label">Difficulty Levels</span>
+            </div>
+            <div class="stat-card">
+                <span class="number">100%</span>
+                <span class="label">Screening Coverage</span>
+            </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-item">
+                <span class="status active">Active</span>
+                <span>Ready for use</span>
+            </div>
+            <div class="legend-item">
+                <span class="status prototype">Prototype</span>
+                <span>Testing phase</span>
+            </div>
+            <div class="legend-item">
+                <span class="status experimental">Experimental</span>
+                <span>Research only</span>
+            </div>
+        </div>
+
+        <!-- Visual Discrimination -->
+        <div class="category">
+            <div class="category-header">
+                <i class="fas fa-clone"></i>
+                <h2>Visual Discrimination</h2>
+            </div>
+            <p class="category-description">
+                Ability to identify differences and similarities between shapes, colors, sizes, and patterns.
+                Essential for reading, mathematics, and daily visual tasks.
+            </p>
+            <div class="assessment-grid">
+                <div class="assessment-card">
+                    <h3>Shape Discrimination Level 1</h3>
+                    <span class="filename">VDT1.html</span>
+                    <p class="purpose">Match similar shapes and identify visual differences in basic geometric forms.</p>
+                    <span class="status active">Active</span>
+                    <a href="VDT1.html">Start Assessment</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Shape Discrimination Level 2</h3>
+                    <span class="filename">VDT2.html</span>
+                    <p class="purpose">Advanced shape matching with more complex visual stimuli.</p>
+                    <span class="status active">Active</span>
+                    <a href="VDT2.html">Start Assessment</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Color Discrimination</h3>
+                    <span class="filename">VDTCC1.html</span>
+                    <p class="purpose">Identify and match colors using high-contrast stimuli suitable for CVI.</p>
+                    <span class="status active">Active</span>
+                    <a href="VDTCC1.html">Start Assessment</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Size Discrimination Level 1</h3>
+                    <span class="filename">VDTS1.html</span>
+                    <p class="purpose">Compare and discriminate between different sizes of similar objects.</p>
+                    <span class="status active">Active</span>
+                    <a href="VDTS1.html">Start Assessment</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Size Discrimination Level 2</h3>
+                    <span class="filename">VDTS2.html</span>
+                    <p class="purpose">Advanced size discrimination with finer gradations.</p>
+                    <span class="status active">Active</span>
+                    <a href="VDTS2.html">Start Assessment</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Emotion Recognition</h3>
+                    <span class="filename">VDTSE1.html</span>
+                    <p class="purpose">Recognize emotional expressions from simplified facial features.</p>
+                    <span class="status active">Active</span>
+                    <a href="VDTSE1.html">Start Assessment</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visual Closure -->
+        <div class="category">
+            <div class="category-header">
+                <i class="fas fa-puzzle-piece"></i>
+                <h2>Visual Closure</h2>
+            </div>
+            <p class="category-description">
+                Ability to recognize objects or forms when parts are missing, obscured, or viewed from different angles.
+            </p>
+            <div class="assessment-grid">
+                <div class="assessment-card">
+                    <h3>Closure Puzzle</h3>
+                    <span class="filename">VC1.html</span>
+                    <p class="purpose">Complete partially hidden images and recognize incomplete forms.</p>
+                    <span class="status active">Active</span>
+                    <a href="VC1.html">Start Assessment</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Closure Matching</h3>
+                    <span class="filename">VC2.html</span>
+                    <p class="purpose">Match incomplete forms to their complete counterparts.</p>
+                    <span class="status active">Active</span>
+                    <a href="VC2.html">Start Assessment</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Animal Closure Level 1</h3>
+                    <span class="filename">VC3.html</span>
+                    <p class="purpose">Identify animals from partial views with child-friendly imagery.</p>
+                    <span class="status active">Active</span>
+                    <a href="VC3.html">Start Assessment</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Animal Closure Level 2</h3>
+                    <span class="filename">VC4.html</span>
+                    <p class="purpose">Advanced animal identification with greater occlusion.</p>
+                    <span class="status active">Active</span>
+                    <a href="VC4.html">Start Assessment</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visual Form Constancy -->
+        <div class="category">
+            <div class="category-header">
+                <i class="fas fa-shapes"></i>
+                <h2>Visual Form Constancy</h2>
+            </div>
+            <p class="category-description">
+                Ability to recognize forms and objects regardless of changes in size, color, position, or orientation.
+            </p>
+            <div class="assessment-grid">
+                <div class="assessment-card">
+                    <h3>Form Constancy - Numbers L1</h3>
+                    <span class="filename">VFC11.html</span>
+                    <p class="purpose">Recognize numbers presented in different fonts, sizes, and styles.</p>
+                    <span class="status active">Active</span>
+                    <a href="VFC11.html">Start Assessment</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Form Constancy - Letters L1</h3>
+                    <span class="filename">VFC12.html</span>
+                    <p class="purpose">Recognize letters in various fonts and presentations.</p>
+                    <span class="status active">Active</span>
+                    <a href="VFC12.html">Start Assessment</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Form Constancy - Size L1</h3>
+                    <span class="filename">VFC13.html</span>
+                    <p class="purpose">Identify same forms at different sizes.</p>
+                    <span class="status active">Active</span>
+                    <a href="VFC13.html">Start Assessment</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Form Constancy - Numbers L2</h3>
+                    <span class="filename">VFC21.html</span>
+                    <p class="purpose">Advanced number recognition with more variations.</p>
+                    <span class="status active">Active</span>
+                    <a href="VFC21.html">Start Assessment</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Form Constancy - Letters L2</h3>
+                    <span class="filename">VFC22.html</span>
+                    <p class="purpose">Advanced letter recognition with complex variations.</p>
+                    <span class="status active">Active</span>
+                    <a href="VFC22.html">Start Assessment</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Form Constancy - Size L2</h3>
+                    <span class="filename">VFC23.html</span>
+                    <p class="purpose">Advanced size and form variation tasks.</p>
+                    <span class="status active">Active</span>
+                    <a href="VFC23.html">Start Assessment</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visual Memory -->
+        <div class="category">
+            <div class="category-header">
+                <i class="fas fa-bookmark"></i>
+                <h2>Visual Memory</h2>
+            </div>
+            <p class="category-description">
+                Ability to remember visual information and recall it after a short interval.
+            </p>
+            <div class="assessment-grid">
+                <div class="assessment-card">
+                    <h3>Visual Memory Assessment</h3>
+                    <span class="filename">VM1.html</span>
+                    <p class="purpose">Remember and recall visual patterns and sequences of objects.</p>
+                    <span class="status active">Active</span>
+                    <a href="VM1.html">Start Assessment</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Memory Image Quiz L1</h3>
+                    <span class="filename">VFigure1.html</span>
+                    <p class="purpose">Image-based memory tasks with familiar objects.</p>
+                    <span class="status active">Active</span>
+                    <a href="VFigure1.html">Start Assessment</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Memory Image Quiz L2</h3>
+                    <span class="filename">VFigure2.html</span>
+                    <p class="purpose">Advanced image memory with more items and complexity.</p>
+                    <span class="status active">Active</span>
+                    <a href="VFigure2.html">Start Assessment</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visual Sequential Memory -->
+        <div class="category">
+            <div class="category-header">
+                <i class="fas fa-list-ol"></i>
+                <h2>Visual Sequential Memory</h2>
+            </div>
+            <p class="category-description">
+                Ability to remember and reproduce a sequence of visual stimuli in the correct order.
+                Critical for daily living skills and academic tasks.
+            </p>
+            <div class="assessment-grid">
+                <div class="assessment-card">
+                    <h3>Beads Activity</h3>
+                    <span class="filename">beads.html</span>
+                    <p class="purpose">Sequence beads in the correct order to create patterns.</p>
+                    <span class="status active">Active</span>
+                    <a href="beads.html">Start Assessment</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Crow Sequence</h3>
+                    <span class="filename">crow.html</span>
+                    <p class="purpose">Sequence items related to a crow story/theme.</p>
+                    <span class="status active">Active</span>
+                    <a href="crow.html">Start Assessment</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Dressing Sequence</h3>
+                    <span class="filename">dressing.html</span>
+                    <p class="purpose">Sequence the steps for getting dressed.</p>
+                    <span class="status active">Active</span>
+                    <a href="dressing.html">Start Assessment</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Lion Sequence</h3>
+                    <span class="filename">lion.html</span>
+                    <p class="purpose">Sequence lion-related items in order.</p>
+                    <span class="status active">Active</span>
+                    <a href="lion.html">Start Assessment</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Morning Routine</h3>
+                    <span class="filename">morning.html</span>
+                    <p class="purpose">Sequence daily morning routine activities for independence.</p>
+                    <span class="status active">Active</span>
+                    <a href="morning.html">Start Assessment</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visual Spatial Skills -->
+        <div class="category">
+            <div class="category-header">
+                <i class="fas fa-arrows-alt"></i>
+                <h2>Visual Spatial Skills</h2>
+            </div>
+            <p class="category-description">
+                Ability to understand spatial relationships, navigate space, and perceive object positions.
+            </p>
+            <div class="assessment-grid">
+                <div class="assessment-card">
+                    <h3>Space Finding Level 1</h3>
+                    <span class="filename">VSpac1.html</span>
+                    <p class="purpose">Locate objects in a spatial grid with basic coordinates.</p>
+                    <span class="status active">Active</span>
+                    <a href="VSpac1.html">Start Assessment</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Space Finding Level 2</h3>
+                    <span class="filename">VSpac2.html</span>
+                    <p class="purpose">Advanced spatial location with more complex relationships.</p>
+                    <span class="status active">Active</span>
+                    <a href="VSpac2.html">Start Assessment</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visual Neglect -->
+        <div class="category">
+            <div class="category-header">
+                <i class="fas fa-columns"></i>
+                <h2>Visual Neglect</h2>
+            </div>
+            <p class="category-description">
+                Assessment of visual field awareness and attention to both sides of space. 
+                Important for post-stroke and hemispatial neglect screening.
+            </p>
+            <div class="assessment-grid">
+                <div class="assessment-card">
+                    <h3>Visual Neglect Level 1</h3>
+                    <span class="filename">VN1.html</span>
+                    <p class="purpose">Basic neglect screening with line bisection and cancellation tasks.</p>
+                    <span class="status active">Active</span>
+                    <a href="VN1.html">Start Assessment</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Visual Neglect Level 2</h3>
+                    <span class="filename">VN2.html</span>
+                    <p class="purpose">Advanced neglect assessment with complex visual fields.</p>
+                    <span class="status active">Active</span>
+                    <a href="VN2.html">Start Assessment</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Figure Ground -->
+        <div class="category">
+            <div class="category-header">
+                <i class="fas fa-layer-group"></i>
+                <h2>Figure Ground</h2>
+            </div>
+            <p class="category-description">
+                Ability to distinguish an object from its background. Essential for visual scanning and reading.
+            </p>
+            <div class="assessment-grid">
+                <div class="assessment-card">
+                    <h3>Object Matching Game</h3>
+                    <span class="filename">FG.html</span>
+                    <p class="purpose">Find objects embedded in busy, cluttered scenes.</p>
+                    <span class="status active">Active</span>
+                    <a href="FG.html">Start Assessment</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Find the Angles</h3>
+                    <span class="filename">line.html</span>
+                    <p class="purpose">Line tracking and angle identification in complex backgrounds.</p>
+                    <span class="status active">Active</span>
+                    <a href="line.html">Start Assessment</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Motion Perception -->
+        <div class="category">
+            <div class="category-header">
+                <i class="fas fa-running"></i>
+                <h2>Motion Perception</h2>
+            </div>
+            <p class="category-description">
+                Ability to detect, track, and interpret moving objects. Important for sports and safe navigation.
+            </p>
+            <div class="assessment-grid">
+                <div class="assessment-card">
+                    <h3>Motion Perception</h3>
+                    <span class="filename">Vmotion1.html</span>
+                    <p class="purpose">Track moving objects and discriminate motion direction.</p>
+                    <span class="status active">Active</span>
+                    <a href="Vmotion1.html">Start Assessment</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pursuit & Fixation -->
+        <div class="category">
+            <div class="category-header">
+                <i class="fas fa-eye"></i>
+                <h2>Pursuit & Fixation</h2>
+            </div>
+            <p class="category-description">
+                Eye movement control and visual attention assessment using eye tracking technology.
+            </p>
+            <div class="assessment-grid">
+                <div class="assessment-card">
+                    <h3>CVI Pursuit & Fixation Screening</h3>
+                    <span class="filename">mirror.html</span>
+                    <p class="purpose">Eye tracking assessment using webcam. Screens for fixation stability and pursuit movements.</p>
+                    <span class="status experimental">Experimental</span>
+                    <span class="status prototype">Prototype</span>
+                    <br><br>
+                    <a href="mirror.html">Start Assessment</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Observation Tasks -->
+        <div class="category">
+            <div class="category-header">
+                <i class="fas fa-clipboard-check"></i>
+                <h2>Observation Tasks</h2>
+            </div>
+            <p class="category-description">
+                Structured behavioral observation and comprehensive visual profiling assessments.
+            </p>
+            <div class="assessment-grid">
+                <div class="assessment-card">
+                    <h3>Child Observation Quiz</h3>
+                    <span class="filename">observation_quiz.html</span>
+                    <p class="purpose">Comprehensive behavioral observation protocol for functional vision assessment.</p>
+                    <span class="status active">Active</span>
+                    <a href="observation_quiz.html">Start Assessment</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 2px solid #eee; color: #888;">
+            <p><strong>Percepto Assessment Library</strong> - Version 1.0 | June 2026</p>
+            <p>For clinical use by qualified professionals only.</p>
+            <p style="margin-top: 10px;">
+                <a href="index.html" style="color: var(--cvi-primary);">Dashboard</a> |
+                <a href="about-percepto.html" style="color: var(--cvi-primary);">About Percepto</a> |
+                <a href="report.html" style="color: var(--cvi-primary);">Reports</a> |
+                <a href="ASSESSMENT_GUIDE.md" style="color: var(--cvi-primary);">Clinician Guide</a> |
+                <a href="QUIZ_INVENTORY.md" style="color: var(--cvi-primary);">Assessment Catalog</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
