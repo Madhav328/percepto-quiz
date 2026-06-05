@@ -1091,7 +1091,7 @@
                     }
                 } else {
                     // Wrong sequence item clicked
-                    feedback.textContent = '❌';
+                    feedback.textContent = '✗';
                     feedback.style.color = '#f44336';
                     clickableElement.style.backgroundColor = 'rgba(244, 67, 54, 0.3)';
                     clickableElement.style.borderColor = '#f44336';
@@ -1108,7 +1108,7 @@
             
             if (isCorrectClick) {
                 gameStats.correctClicks++;
-                feedback.textContent = '✅';
+                feedback.textContent = '✓';
                 feedback.style.color = '#4CAF50';
                 clickableElement.style.backgroundColor = 'rgba(76, 175, 80, 0.6)';
                 clickableElement.style.borderColor = '#4CAF50';
@@ -1147,14 +1147,14 @@
                 }
                 
                 if (isComplete) {
-                    showColorfulFeedback('All objects found! Great job! 🎉', 'success');
+                    showColorfulFeedback('✓ Correct!', 'success');
                     setTimeout(() => {
                         currentQuestionIndex++;
                         displayQuestion();
                     }, 1500);
                 }
             } else if (!currentScenario.sequenceRequired) {
-                feedback.textContent = '❌';
+                feedback.textContent = '✗';
                 feedback.style.color = '#f44336';
                 clickableElement.style.backgroundColor = 'rgba(244, 67, 54, 0.3)';
                 clickableElement.style.borderColor = '#f44336';
@@ -1208,7 +1208,7 @@
 
         function skipQuestion() {
             incorrectAnswers++;
-            showColorfulFeedback('You skipped this question! ⏭️', 'info');
+            showColorfulFeedback('Skipped', 'info');
             setTimeout(() => {
                 currentQuestionIndex++;
                 if (currentQuestionIndex >= questions.length) {

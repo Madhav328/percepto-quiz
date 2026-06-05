@@ -559,15 +559,15 @@
             timeTaken.push(timeSpent);
             if (option.correct) {
                 score++;
-                showColorfulFeedback('Correct! 🎉', 'success');
+                showColorfulFeedback('✓ Correct!', 'success');
                 setTimeout(moveToNextQuestion, 1500);
             } else {
                 triesLeft--;
                 if (triesLeft > 0) {
-                    showColorfulFeedback(`Wrong! Try again. You have ${triesLeft} tries left. 🤔`, 'error');
+                    showColorfulFeedback('✗ Try Again', 'error');
                     setTimeout(displayQuestion, 1500);
                 } else {
-                    showColorfulFeedback('Out of tries! Moving to the next question. 😔', 'warning');
+                    showColorfulFeedback('✗ Try Again', 'warning');
                     incorrectAnswers++;
                     setTimeout(moveToNextQuestion, 1500);
                 }
@@ -578,7 +578,7 @@
             const endTime = Date.now();
             const timeSpent = (endTime - startTime) / 1000;
             incorrectAnswers++;
-            showColorfulFeedback('You skipped this question! ⏭️', 'info');
+            showColorfulFeedback('Skipped', 'info');
             setTimeout(moveToNextQuestion, 1500);
         }
 

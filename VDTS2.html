@@ -255,17 +255,17 @@ document.addEventListener("click", () => {
 
             if (option.correct) {
                 score++;
-                alert('Correct!');
-                moveToNextQuestion();
+                showFeedback('✓ Correct!', 'success');
+                setTimeout(moveToNextQuestion, 1500);
             } else {
                 incorrectAnswers++;
                 triesLeft--;
                 if (triesLeft > 0) {
-                    alert(`Wrong! Try again. You have ${triesLeft} tries left.`);
-                    displayQuestion();
+                    showFeedback('✗ Try Again', 'error');
+                    setTimeout(displayQuestion, 1500);
                 } else {
-                    alert('Out of tries! Moving to the next question.');
-                    moveToNextQuestion();
+                    showFeedback('✗ Try Again', 'warning');
+                    setTimeout(moveToNextQuestion, 1500);
                 }
             }
         }
@@ -275,8 +275,8 @@ document.addEventListener("click", () => {
             const timeSpent = (endTime - startTime) / 1000;
             timeTaken.push({ question: currentQuestionIndex + 1, time: timeSpent.toFixed(2) });
 
-            alert('You skipped this question!');
-            moveToNextQuestion();
+            showFeedback('Skipped', 'info');
+            setTimeout(moveToNextQuestion, 1500);
         }
 
         function moveToNextQuestion() {
@@ -409,6 +409,41 @@ function clearReport() {
             document.getElementById('result-container').style.display = 'none';
             document.getElementById('quiz-container').style.display = 'block';
             displayQuestion();
+        }
+
+        function showFeedback(message, type) {
+            // Remove any existing feedback
+            const existingFeedback = document.querySelector('.feedback-overlay');
+            if (existingFeedback) {
+                existingFeedback.remove();
+            }
+            
+            // Create feedback overlay
+            const overlay = document.createElement('div');
+            overlay.className = 'feedback-overlay';
+            overlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 1000;';
+            
+            // Create feedback message
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `feedback-message feedback-${type}`;
+            const colors = {
+                success: '#4CAF50',
+                error: '#f44336',
+                warning: '#ff9800',
+                info: '#2196F3'
+            };
+            messageDiv.style.cssText = `background: ${colors[type] || '#333'}; color: white; padding: 20px 40px; border-radius: 10px; font-size: 24px; font-weight: bold; box-shadow: 0 4px 20px rgba(0,0,0,0.3);`;
+            messageDiv.textContent = message;
+            
+            overlay.appendChild(messageDiv);
+            document.body.appendChild(overlay);
+            
+            // Auto-remove after 1.2 seconds
+            setTimeout(() => {
+                if (overlay.parentNode) {
+                    overlay.remove();
+                }
+            }, 1200);
         }
 
         // Start the quiz

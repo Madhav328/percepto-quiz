@@ -438,6 +438,7 @@
         .fa-list-ol { animation: sequence-animation 3s infinite; }
         .fa-bookmark { animation: pulse-animation 2s infinite; }
         .fa-running { animation: move-animation 1.5s infinite alternate; }
+        .fa-walking { animation: walk-animation 1.2s infinite alternate; }
         .fa-chart-bar { animation: bounce-animation 2s infinite alternate; }
         
         /* Define a bounce animation for the chart icon */
@@ -490,6 +491,11 @@
             30% { transform: translateY(-50%) translateX(5px); }
             60% { transform: translateY(-50%) translateX(-5px); }
             100% { transform: translateY(-50%) translateX(0); }
+        }
+        
+        @keyframes walk-animation {
+            0% { transform: translateY(-50%) rotate(-5deg); }
+            100% { transform: translateY(-50%) rotate(5deg); }
         }
         
         .quiz-button:hover {
@@ -720,6 +726,7 @@
         .quiz-types a:nth-child(8) { animation-delay: 0.45s; }
         .quiz-types a:nth-child(9) { animation-delay: 0.5s; }
         .quiz-types a:nth-child(10) { animation-delay: 0.55s; }
+        .quiz-types a:nth-child(11) { animation-delay: 0.6s; }
         
         .quiz-button {
             padding: 15px 12px;
@@ -798,6 +805,7 @@
         .quiz-types a:nth-child(8) .quiz-button { animation-delay: 1.5s; }
         .quiz-types a:nth-child(9) .quiz-button { animation-delay: 1.7s; }
         .quiz-types a:nth-child(10) .quiz-button { animation-delay: 1.9s; }
+        .quiz-types a:nth-child(11) .quiz-button { animation-delay: 2.1s; }
         
         /* Form styles */
         .form-container {
@@ -1201,6 +1209,7 @@
                 <a href="VSM.html" style="text-decoration: none;"><button class="quiz-button" style="min-height: 30px; padding: 3px 5px; font-size: 0.9rem;"><i class="fas fa-list-ol"></i> Visual Sequential Memory</button></a>
                 <a href="VM1.html" style="text-decoration: none;"><button class="quiz-button" style="min-height: 30px; padding: 3px 5px; font-size: 0.9rem;"><i class="fas fa-bookmark"></i> Visual Memory</button></a>
                 <a href="Vmotion1.html" style="text-decoration: none;"><button class="quiz-button" style="min-height: 30px; padding: 3px 5px; font-size: 0.9rem;"><i class="fas fa-running"></i> Motion Perception</button></a>
+                <a href="BM.html" style="text-decoration: none;"><button class="quiz-button" style="min-height: 30px; padding: 3px 5px; font-size: 0.9rem;"><i class="fas fa-walking"></i> Biological Motion</button></a>
                 <a href="observation_quiz.html" style="text-decoration: none;"><button class="quiz-button" style="min-height: 30px; padding: 3px 5px; font-size: 0.9rem;"><i class="fas fa-clipboard-check"></i> Observation Quiz</button></a>
             </div>
 
