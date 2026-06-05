@@ -290,15 +290,28 @@
             if (totalTaps === 1) firstTapTime = (Date.now() - totalStartTime) / 1000;
         });
 
+        // Helper functions to get distractor motions (variations of the target motion)
+        function getDistractorMotion(targetMotion) {
+            const motions = ['walk', 'fly', 'swim', 'flutter'];
+            return motions.filter(m => m !== targetMotion)[0];
+        }
+        function getDistractorMotion2(targetMotion) {
+            const motions = ['walk', 'fly', 'swim', 'flutter'];
+            return motions.filter(m => m !== targetMotion)[1];
+        }
+        function getDistractorMotion3(targetMotion) {
+            const motions = ['walk', 'fly', 'swim', 'flutter'];
+            return motions.filter(m => m !== targetMotion)[2];
+        }
+
         function displayQuestion() {
             const question = questions[currentQuestionIndex];
             startTime = Date.now();
             
-            // Show target with animation
+            // Show target with animation (no hint - just the motion)
             const targetDisplay = document.getElementById('target-display');
             targetDisplay.innerHTML = `
                 <div style="font-size: 72px; animation: ${question.motion} 1.5s infinite;">${question.emoji}</div>
-                <div class="motion-hint">Target: ${question.name}</div>
             `;
             
             // Add motion animations
@@ -314,12 +327,12 @@
                 document.head.appendChild(style);
             }
             
-            // Show options
+            // Show options with same emojis to make it harder (rely on motion pattern, not emoji)
             const allOptions = [
-                { emoji: '🚶', name: 'Walking', correct: question.target === 'person', motion: 'walk' },
-                { emoji: '🐦', name: 'Flying', correct: question.target === 'bird', motion: 'fly' },
-                { emoji: '🐟', name: 'Swimming', correct: question.target === 'fish', motion: 'swim' },
-                { emoji: '🦋', name: 'Fluttering', correct: question.target === 'butterfly', motion: 'flutter' }
+                { emoji: question.emoji, name: 'A', correct: true, motion: question.motion },
+                { emoji: question.emoji, name: 'B', correct: false, motion: getDistractorMotion(question.motion) },
+                { emoji: question.emoji, name: 'C', correct: false, motion: getDistractorMotion2(question.motion) },
+                { emoji: question.emoji, name: 'D', correct: false, motion: getDistractorMotion3(question.motion) }
             ].sort(() => Math.random() - 0.5);
             
             const container = document.getElementById('images-container');
