@@ -429,43 +429,49 @@
             }
         });
 
+        // Prototype SVG emotion images - child-friendly simple faces
+        const emotionSVGs = {
+            happy: `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><circle cx='60' cy='60' r='55' fill='%23FFD93D' stroke='%23FFA500' stroke-width='3'/><circle cx='40' cy='45' r='8' fill='%23333'/><circle cx='80' cy='45' r='8' fill='%23333'/><path d='M 35 70 Q 60 95 85 70' stroke='%23333' stroke-width='4' fill='none' stroke-linecap='round'/></svg>`,
+            angry: `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><circle cx='60' cy='60' r='55' fill='%23FF6B6B' stroke='%23E74C3C' stroke-width='3'/><line x1='30' y1='35' x2='50' y2='45' stroke='%23333' stroke-width='4' stroke-linecap='round'/><line x1='90' y1='35' x2='70' y2='45' stroke='%23333' stroke-width='4' stroke-linecap='round'/><circle cx='40' cy='50' r='6' fill='%23333'/><circle cx='80' cy='50' r='6' fill='%23333'/><path d='M 35 80 Q 60 65 85 80' stroke='%23333' stroke-width='4' fill='none' stroke-linecap='round'/></svg>`,
+            sad: `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><circle cx='60' cy='60' r='55' fill='%2374B9FF' stroke='%235DADE2' stroke-width='3'/><circle cx='40' cy='50' r='8' fill='%23333'/><circle cx='80' cy='50' r='8' fill='%23333'/><path d='M 35 85 Q 60 70 85 85' stroke='%23333' stroke-width='4' fill='none' stroke-linecap='round'/></svg>`,
+            surprised: `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><circle cx='60' cy='60' r='55' fill='%23A8E6CF' stroke='%2348C9B0' stroke-width='3'/><circle cx='40' cy='40' r='10' fill='%23333'/><circle cx='80' cy='40' r='10' fill='%23333'/><ellipse cx='60' cy='80' rx='12' ry='15' fill='%23333'/></svg>`
+        };
+
         const questions = [
             {
-                questionImage: "images/VD/emotion/happy.png",
+                questionImage: emotionSVGs.happy,
                 options: [
-                    { src: "images/VD/emotion/happy1.png", correct: true },
-                    { src: "images/VD/emotion/angry1.png", correct: false },
-                    { src: "images/VD/emotion/sad1.png", correct: false },
-                    { src: "images/VD/emotion/fear1.png", correct: false }
+                    { src: emotionSVGs.happy, correct: true },
+                    { src: emotionSVGs.angry, correct: false },
+                    { src: emotionSVGs.sad, correct: false },
+                    { src: emotionSVGs.surprised, correct: false }
                 ]
             },
             {
-                questionImage: "images/VD/emotion/angry.png",
+                questionImage: emotionSVGs.angry,
                 options: [
-                    { src: "images/VD/emotion/happy1.png", correct: false },
-                    { src: "images/VD/emotion/angry1.png", correct: true },
-                    { src: "images/VD/emotion/sad1.png", correct: false },
-                    { src: "images/VD/emotion/fear1.png", correct: false }
+                    { src: emotionSVGs.happy, correct: false },
+                    { src: emotionSVGs.angry, correct: true },
+                    { src: emotionSVGs.sad, correct: false },
+                    { src: emotionSVGs.surprised, correct: false }
                 ]
             },
-            
             {
-                questionImage: "images/VD/emotion/sad.png",
+                questionImage: emotionSVGs.sad,
                 options: [
-                    { src: "images/VD/emotion/happy1.png", correct: false },
-                    { src: "images/VD/emotion/angry1.png", correct: false },
-                    { src: "images/VD/emotion/sad1.png", correct: true },
-                    { src: "images/VD/emotion/fear1.png", correct: false }
+                    { src: emotionSVGs.happy, correct: false },
+                    { src: emotionSVGs.angry, correct: false },
+                    { src: emotionSVGs.sad, correct: true },
+                    { src: emotionSVGs.surprised, correct: false }
                 ]
             },
-            
             {
-                questionImage: "images/VD/emotion/fear.png",
+                questionImage: emotionSVGs.surprised,
                 options: [
-                    { src: "images/VD/emotion/happy1.png", correct: false },
-                    { src: "images/VD/emotion/angry1.png", correct: false },
-                    { src: "images/VD/emotion/sad1.png", correct: false },
-                    { src: "images/VD/emotion/fear1.png", correct: true }
+                    { src: emotionSVGs.happy, correct: false },
+                    { src: emotionSVGs.angry, correct: false },
+                    { src: emotionSVGs.sad, correct: false },
+                    { src: emotionSVGs.surprised, correct: true }
                 ]
             }
         ];
@@ -560,15 +566,15 @@
             timeTaken.push(timeSpent);
             if (option.correct) {
                 score++;
-                showColorfulFeedback('Correct! 🎉', 'success');
+                showColorfulFeedback('✓ Correct!', 'success');
                 setTimeout(moveToNextQuestion, 1500);
             } else {
                 triesLeft--;
                 if (triesLeft > 0) {
-                    showColorfulFeedback(`Wrong! Try again. You have ${triesLeft} tries left. 🤔`, 'error');
+                    showColorfulFeedback('✗ Try Again', 'error');
                     setTimeout(displayQuestion, 1500);
                 } else {
-                    showColorfulFeedback('Out of tries! Moving to the next question. 😔', 'warning');
+                    showColorfulFeedback('✗ Try Again', 'warning');
                     incorrectAnswers++;
                     setTimeout(moveToNextQuestion, 1500);
                 }
@@ -579,7 +585,7 @@
             const endTime = Date.now();
             const timeSpent = (endTime - startTime) / 1000;
             incorrectAnswers++;
-            showColorfulFeedback('You skipped this question! ⏭️', 'info');
+            showColorfulFeedback('Skipped', 'info');
             setTimeout(moveToNextQuestion, 1500);
         }
 
