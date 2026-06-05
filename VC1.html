@@ -368,41 +368,49 @@
             doctorId: doctorId || 'none'
         });
 
+        // Prototype SVG shape images - simple geometric shapes for matching
+        const shapeSVGs = {
+            circle: `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><circle cx='60' cy='60' r='50' fill='%234CAF50' stroke='%232E7D32' stroke-width='4'/></svg>`,
+            square: `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><rect x='15' y='15' width='90' height='90' fill='%232196F3' stroke='%231976D2' stroke-width='4'/></svg>`,
+            triangle: `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><polygon points='60,15 105,100 15,100' fill='%23FF9800' stroke='%23F57C00' stroke-width='4'/></svg>`,
+            star: `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><polygon points='60,10 75,45 110,45 82,70 92,105 60,85 28,105 38,70 10,45 45,45' fill='%239C27B0' stroke='%237B1FA2' stroke-width='4'/></svg>`
+        };
+
         const questions = [
             {
-                questionImage: "images/VC/puzzle/fear1.png",
+                questionImage: shapeSVGs.circle,
                 options: [
-                    { src: "images/VC/puzzle/fear1.png", correct: true },
-                    { src: "images/VC/puzzle/sad1.png", correct: false },
-                    { src: "images/VC/puzzle/angry1.png", correct: false },
-                    { src: "images/VC/puzzle/happy1.png", correct: false }
+                    { src: shapeSVGs.circle, correct: true },
+                    { src: shapeSVGs.square, correct: false },
+                    { src: shapeSVGs.triangle, correct: false },
+                    { src: shapeSVGs.star, correct: false }
                 ]
             },
             {
-                questionImage: "images/VC/puzzle/sad1.png",
+                questionImage: shapeSVGs.square,
                 options: [
-                    { src: "images/VC/puzzle/fear1.png", correct: false },
-                    { src: "images/VC/puzzle/sad1.png", correct: true },
-                    { src: "images/VC/puzzle/angry1.png", correct: false },
-                    { src: "images/VC/puzzle/happy1.png", correct: false }
+                    { src: shapeSVGs.circle, correct: false },
+                    { src: shapeSVGs.square, correct: true },
+                    { src: shapeSVGs.triangle, correct: false },
+                    { src: shapeSVGs.star, correct: false }
                 ]
             },
             {
-                questionImage: "images/VC/puzzle/angry1.png",
+                questionImage: shapeSVGs.triangle,
                 options: [
-                    { src: "images/VC/puzzle/fear1.png", correct: false },
-                    { src: "images/VC/puzzle/sad1.png", correct: false },
-                    { src: "images/VC/puzzle/angry1.png", correct: true },
-                    { src: "images/VC/puzzle/happy1.png", correct: false }
+                    { src: shapeSVGs.circle, correct: false },
+                    { src: shapeSVGs.square, correct: false },
+                    { src: shapeSVGs.triangle, correct: true },
+                    { src: shapeSVGs.star, correct: false }
                 ]
             },
             {
-                questionImage: "images/VC/puzzle/happy1.png",
+                questionImage: shapeSVGs.star,
                 options: [
-                    { src: "images/VC/puzzle/fear1.png", correct: false },
-                    { src: "images/VC/puzzle/sad1.png", correct: false },
-                    { src: "images/VC/puzzle/angry1.png", correct: false },
-                    { src: "images/VC/puzzle/happy1.png", correct: true }
+                    { src: shapeSVGs.circle, correct: false },
+                    { src: shapeSVGs.square, correct: false },
+                    { src: shapeSVGs.triangle, correct: false },
+                    { src: shapeSVGs.star, correct: true }
                 ]
             }
         ];
